@@ -4,6 +4,7 @@
 # web-dev toolchain declared for this repo:
 #   - superpowers@claude-plugins-official   (obra/superpowers)
 #   - frontend-design@claude-plugins-official (anthropics, frontend-design)
+#   - modern-web-guidance@claude-plugins-official (GoogleChrome/modern-web-guidance)
 #   - gstack (garrytan/gstack) in ~/.claude/skills/gstack
 # Idempotent: anything already installed is left alone.
 set -euo pipefail
@@ -22,7 +23,7 @@ if ! claude plugin marketplace list 2>/dev/null | grep -q "$MARKETPLACE"; then
   claude plugin marketplace add anthropics/claude-plugins-official >>"$LOG" 2>&1 || true
 fi
 installed="$(claude plugin list 2>/dev/null || true)"
-for plugin in superpowers frontend-design; do
+for plugin in superpowers frontend-design modern-web-guidance; do
   if grep -q "$plugin@$MARKETPLACE" <<<"$installed"; then
     status+=("$plugin: ok")
   # User scope: installing at project scope would rewrite the committed
@@ -55,7 +56,7 @@ echo "Web-dev toolchain: ${summary%; }"
 
 # Plugins installed by this hook load only from the next session. Until then,
 # point Claude at their skill files so the workflow in CLAUDE.md still works.
-if grep -qE '(superpowers|frontend-design): installed' <<<"$summary"; then
+if grep -qE '(superpowers|frontend-design|modern-web-guidance): installed' <<<"$summary"; then
   echo "Plugins installed during this session are not registered as Skills yet."
   echo "Until the next session, Read the SKILL.md files directly from:"
   echo "  $HOME/.claude/plugins/cache/$MARKETPLACE/<plugin>/<version>/skills/<skill>/SKILL.md"

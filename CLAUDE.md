@@ -8,9 +8,10 @@ Projekt: strony internetowe i aplikacje webowe. Odpowiadaj użytkownikowi po pol
 |---|---|---|
 | superpowers | `obra/superpowers` przez `superpowers@claude-plugins-official` | wtyczka, skille `superpowers:*` |
 | frontend-design | `frontend-design@claude-plugins-official` (Anthropic) | wtyczka, skill `frontend-design:frontend-design` |
+| modern-web-guidance | `GoogleChrome/modern-web-guidance` przez `modern-web-guidance@claude-plugins-official` | wtyczka, skill `modern-web-guidance:modern-web-guidance` |
 | gstack | `garrytan/gstack` w `~/.claude/skills/gstack` | skille `/review`, `/qa`, `/ship`, ... |
 
-`.claude/settings.json` włącza obie wtyczki, a `.claude/hooks/session-start.sh`
+`.claude/settings.json` włącza wtyczki, a `.claude/hooks/session-start.sh`
 instaluje brakujące narzędzia na starcie każdej sesji w chmurze. Wtyczki
 zainstalowane przez hook są widoczne jako skille dopiero od następnej sesji;
 do tego czasu czytaj ich `SKILL.md` z `~/.claude/plugins/cache/claude-plugins-official/`.
@@ -27,8 +28,8 @@ gdy zadanie ich wymaga. Nie powtarzaj tego samego kroku dwoma narzędziami
 |---|---|---|---|
 | 1. ANALIZA | `superpowers:brainstorming` | `/office-hours` (nowy produkt), `/spec` (mglisty zakres), `/investigate` (istniejący kod) | uzgodnione wymagania i zakres |
 | 2. PLAN | `superpowers:writing-plans` | `/plan-eng-review`, `/plan-design-review` dla UI, `/autoplan` | zapisany plan z krokami i testami |
-| 3. PROJEKT | `frontend-design:frontend-design` | `/design-consultation` (system projektowy), `/design-shotgun` (warianty) | kierunek wizualny, tokeny, makiety/komponenty |
-| 4. IMPLEMENTACJA | `superpowers:subagent-driven-development` lub `superpowers:executing-plans` | `superpowers:test-driven-development`, `superpowers:using-git-worktrees` | kod z testami, commity na gałęzi |
+| 3. PROJEKT | `frontend-design:frontend-design` | `modern-web-guidance:modern-web-guidance` (aktualne wzorce HTML/CSS/JS), `/design-consultation` (system projektowy), `/design-shotgun` (warianty) | kierunek wizualny, tokeny, makiety/komponenty |
+| 4. IMPLEMENTACJA | `superpowers:subagent-driven-development` lub `superpowers:executing-plans` | `modern-web-guidance:modern-web-guidance` przed każdym elementem HTML/CSS/JS, `superpowers:test-driven-development`, `superpowers:using-git-worktrees` | kod z testami, commity na gałęzi |
 | 5. CODE REVIEW | `/review` (gstack) | `superpowers:receiving-code-review` do obsługi uwag, `/cso` (bezpieczeństwo) | lista uwag do poprawy |
 | 6. TESTY | testy projektu + `/qa-only` (przeglądarka, raport) | `/design-review` (wizualnie), `/benchmark` (wydajność) | raport błędów z dowodami |
 | 7. POPRAWKI | `/qa` (naprawa i ponowny test) | `superpowers:systematic-debugging`, `/investigate` | zielone testy, zamknięte uwagi z review |
